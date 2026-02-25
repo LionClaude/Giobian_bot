@@ -2,8 +2,8 @@ from telegram import Bot
 import datetime
 import os
 
-TOKEN = os.environ["BOT_TOKEN"]
-CHAT_ID = os.environ["CHAT_ID"]
+TOKEN = os.environ["8767816400:AAExumxckda3b81VReiNN97bpLRfz2bUFeA"]
+CHAT_ID = os.environ["-5102065600"]
 
 def calcola_pasqua(anno):
     a = anno % 19

@@ -50,7 +50,6 @@ async def main():
         f"🎭 Mancano {settimane} settimane, ovvero "
         f"{totale_giorni} giorni "
         f"a giobia 'n bot!\n"
-        f"📅 {target.strftime('%d/%m/%Y')}"
     )
 
     await bot.send_message(chat_id=CHAT_ID, text=messaggio)

@@ -6,52 +6,54 @@ import os
 TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
 
+def calcola_pasqua(anno):
+    a = anno % 19
+    b = anno // 100
+    c = anno % 100
+    d = b // 4
+    e = b % 4
+    f = (b + 8) // 25
+    g = (b - f + 1) // 3
+    h = (19 * a + b - d - g + 15) % 30
+    i = c // 4
+    k = c % 4
+    l = (32 + 2 * e + 2 * i - h - k) % 7
+    m = (a + 11 * h + 22 * l) // 451
+    mese = (h + l - 7 * m + 114) // 31
+    giorno = ((h + l - 7 * m + 114) % 31) + 1
+    return datetime.date(anno, mese, giorno)
+
+def prossimo_giovedi_grasso():
+    oggi = datetime.date.today()
+    anno = oggi.year
+    pasqua = calcola_pasqua(anno)
+    giovedi_grasso = pasqua - datetime.timedelta(days=52)
+
+    if giovedi_grasso <= oggi:
+        pasqua = calcola_pasqua(anno + 1)
+        giovedi_grasso = pasqua - datetime.timedelta(days=52)
+
+    return giovedi_grasso
+
 async def main():
     bot = Bot(token=TOKEN)
 
     oggi = datetime.date.today()
-
-    # Calcolo Giovedì Grasso
-    def calcola_pasqua(anno):
-        a = anno % 19
-        b = anno // 100
-        c = anno % 100
-        d = b // 4
-        e = b % 4
-        f = (b + 8) // 25
-        g = (b - f + 1) // 3
-        h = (19 * a + b - d - g + 15) % 30
-        i = c // 4
-        k = c % 4
-        l = (32 + 2 * e + 2 * i - h - k) % 7
-        m = (a + 11*h + 22*l)//451
-        mese = (h+l-7*m+114)//31
-        giorno = ((h+l-7*m+114)%31)+1
-        return datetime.date(anno, mese, giorno)
-
-    def prossimo_giovedi_grasso():
-        anno = oggi.year
-        pasqua = calcola_pasqua(anno)
-        giovedi_grasso = pasqua - datetime.timedelta(days=52)
-        if giovedi_grasso <= oggi:
-            pasqua = calcola_pasqua(anno+1)
-            giovedi_grasso = pasqua - datetime.timedelta(days=52)
-        return giovedi_grasso
-
     target = prossimo_giovedi_grasso()
     delta = target - oggi
-    settimane = delta.days // 7
-    giorni = delta.days % 7
+
+    totale_giorni = delta.days
+    settimane = totale_giorni // 7
+    giorni = totale_giorni % 7
 
     messaggio = (
-        f"🎭 Mancano {settimane} settimane e {giorni} giorni "
-        f"a giobia'n bot!\n"
-        f"📅 Data: {target.strftime('%d/%m/%Y')}"
+        f"🎭 Mancano {settimane} settimane, ovvero"
+        f"({totale_giorni} giorni) "
+        f"a giobia 'n bot!\n"
+        f"📅 {target.strftime('%d/%m/%Y')}"
     )
 
-    # Async send
     await bot.send_message(chat_id=CHAT_ID, text=messaggio)
-    await bot.close()  # chiude la connessione correttamente
+    await bot.close()
 
-# Lancia lo script
 asyncio.run(main())

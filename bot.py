@@ -54,6 +54,5 @@ async def main():
     )
 
     await bot.send_message(chat_id=CHAT_ID, text=messaggio)
-    await bot.close()
 
 asyncio.run(main())

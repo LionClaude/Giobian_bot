@@ -47,8 +47,8 @@ async def main():
     giorni = totale_giorni % 7
 
     messaggio = (
-        f"🎭 Mancano {settimane} settimane, ovvero"
-        f"({totale_giorni} giorni) "
+        f"🎭 Mancano {settimane} settimane, ovvero "
+        f"{totale_giorni} giorni "
         f"a giobia 'n bot!\n"
         f"📅 {target.strftime('%d/%m/%Y')}"
     )

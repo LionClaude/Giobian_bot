@@ -45,7 +45,7 @@ async def main():
 
     messaggio = (
         f"🎭 Mancano {settimane} settimane e {giorni} giorni "
-        f"al prossimo Giovedì Grasso!\n"
+        f"a giobia'n bot!\n"
         f"📅 Data: {target.strftime('%d/%m/%Y')}"
     )
 

@@ -49,4 +49,4 @@ messaggio = (
 
 bot = Bot(token=TOKEN)
 bot.send_message(chat_id=CHAT_ID, text=messaggio)
-    app.run_polling()
+app.run_polling()
